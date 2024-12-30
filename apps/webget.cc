@@ -1,22 +1,29 @@
+#include "address.hh"
+#include "buffer.hh"
 #include "socket.hh"
 #include "util.hh"
 
 #include <cstdlib>
 #include <iostream>
-
+#include <locale>
+#include <string>
+#include <sys/socket.h>
+#include <unistd.h>
 using namespace std;
 
 void get_URL(const string &host, const string &path) {
-    // Your code here.
-
-    // You will need to connect to the "http" service on
-    // the computer whose name is in the "host" string,
-    // then request the URL path given in the "path" string.
-
-    // Then you'll need to print out everything the server sends back,
-    // (not just one call to read() -- everything) until you reach
-    // the "eof" (end of file).
-
+    string service = "http";
+    auto addr = Address(host, service);
+    auto socket = TCPSocket();
+    socket.connect(addr);
+    string message = "GET " + path + " HTTP/1.1\r\nHost: " + host + "\r\n\r\n"
+    + "Connection: close\r\n\r\n";
+    socket.write(message);
+    //socket.shutdown(SHUT_WR);
+    while (!socket.eof()) {
+        std::cout << socket.read();
+    }
+    socket.close();
     cerr << "Function called: get_URL(" << host << ", " << path << ").\n";
     cerr << "Warning: get_URL() has not been implemented yet.\n";
 }

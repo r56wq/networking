@@ -1,0 +1,24 @@
+Start testing: Dec 30 22:59 CST
+----------------------------------------------------------
+28/166 Testing: t_webget
+28/166 Test: t_webget
+Command: "/root/cs144/CS144-Computer-Network/tests/webget_t.sh"
+Directory: /root/cs144/CS144-Computer-Network
+"t_webget" start time: Dec 30 22:59 CST
+Output:
+----------------------------------------------------------
+Function called: get_URL(cs144.keithw.org, /nph-hasher/xyzzy).
+Warning: get_URL() has not been implemented yet.
+HTTP/1.1 200 OK
+Content-type: text/plain
+
+7SmXqWkrLKzVBCEalbSPqBcvs11Pw263K7x4Wv3JckI
+<end of output>
+Test time =   1.20 sec
+----------------------------------------------------------
+Test Passed.
+"t_webget" end time: Dec 30 22:59 CST
+"t_webget" time elapsed: 00:00:01
+----------------------------------------------------------
+
+End testing: Dec 30 22:59 CST
