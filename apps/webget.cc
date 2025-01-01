@@ -12,14 +12,13 @@
 using namespace std;
 
 void get_URL(const string &host, const string &path) {
-    string service = "http";
-    auto addr = Address(host, service);
+    const string service = "http";
+    const auto addr = Address(host, service);
     auto socket = TCPSocket();
     socket.connect(addr);
-    string message = "GET " + path + " HTTP/1.1\r\nHost: " + host + "\r\n\r\n"
-    + "Connection: close\r\n\r\n";
+    const string message = "GET " + path + " HTTP/1.1\r\nHost: " + host + "\r\n\r\n" + "Connection: close\r\n\r\n";
     socket.write(message);
-    //socket.shutdown(SHUT_WR);
+    // socket.shutdown(SHUT_WR);
     while (!socket.eof()) {
         std::cout << socket.read();
     }

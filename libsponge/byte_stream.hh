@@ -1,7 +1,9 @@
 #ifndef SPONGE_LIBSPONGE_BYTE_STREAM_HH
 #define SPONGE_LIBSPONGE_BYTE_STREAM_HH
 
+#include <cstddef>
 #include <string>
+#include <vector>
 
 //! \brief An in-order byte stream.
 
@@ -11,11 +13,20 @@
 class ByteStream {
   private:
     // Your code here -- add private members as necessary.
-
+    size_t _capacity = 0;  // A room with 'capacity bytes'
+    size_t _nwrite = 0;    // number of bytes that the writer has written to the room;
+    size_t _nread = 0;     // number of bytes that the reader has read from the room;
+    size_t _readPtr = 0;
+    size_t _writePtr = 0;
+    bool _writable = true;
+    bool _readable = true;
+    std::string _buf;
     // Hint: This doesn't need to be a sophisticated data structure at
     // all, but if any of your tests are taking longer than a second,
     // that's a sign that you probably want to keep exploring
     // different approaches.
+
+    size_t getRemainRoom() const { return _capacity - (_nwrite - _nread); }
 
     bool _error{};  //!< Flag indicating that the stream suffered an error.
 
