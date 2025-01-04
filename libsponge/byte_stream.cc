@@ -27,7 +27,7 @@ size_t ByteStream::write(const string &data) {
     _nwrite += thisWrite;
     for (size_t i = 0; i < thisWrite; i++) {
         _buf[_writePtr] = data[i];
-        _writePtr ++;
+        _writePtr = (_writePtr + 1 + _capacity) % _capacity;
     }
     return thisWrite;
 }
