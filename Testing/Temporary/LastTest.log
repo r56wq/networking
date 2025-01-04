@@ -1,27 +1,17 @@
-Start testing: Jan 01 11:31 CST
+Start testing: Jan 04 15:51 CST
 ----------------------------------------------------------
 23/166 Testing: t_byte_stream_construction
 23/166 Test: t_byte_stream_construction
 Command: "/root/cs144/CS144-Computer-Network/tests/byte_stream_construction"
 Directory: /root/cs144/CS144-Computer-Network
-"t_byte_stream_construction" start time: Jan 01 11:31 CST
+"t_byte_stream_construction" start time: Jan 04 15:51 CST
 Output:
 ----------------------------------------------------------
-Test Failure on expectation:
-	Expectation: input_ended: 0
-
-Failure message:
-	The ByteStream should have had input_ended equal to 0 but instead it was 1
-
-List of steps that executed successfully:
-	Initialized with (capacity=15)
-
-Exception: The test "construction" failed
 <end of output>
 Test time =   0.00 sec
 ----------------------------------------------------------
-Test Failed.
-"t_byte_stream_construction" end time: Jan 01 11:31 CST
+Test Passed.
+"t_byte_stream_construction" end time: Jan 04 15:51 CST
 "t_byte_stream_construction" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -29,25 +19,14 @@ Test Failed.
 24/166 Test: t_byte_stream_one_write
 Command: "/root/cs144/CS144-Computer-Network/tests/byte_stream_one_write"
 Directory: /root/cs144/CS144-Computer-Network
-"t_byte_stream_one_write" start time: Jan 01 11:31 CST
+"t_byte_stream_one_write" start time: Jan 04 15:51 CST
 Output:
 ----------------------------------------------------------
-Test Failure on expectation:
-	Expectation: input_ended: 0
-
-Failure message:
-	The ByteStream should have had input_ended equal to 0 but instead it was 1
-
-List of steps that executed successfully:
-	Initialized with (capacity=15)
-	     Action: write "cat" to the stream
-
-Exception: The test "write-end-pop" failed
 <end of output>
 Test time =   0.00 sec
 ----------------------------------------------------------
-Test Failed.
-"t_byte_stream_one_write" end time: Jan 01 11:31 CST
+Test Passed.
+"t_byte_stream_one_write" end time: Jan 04 15:51 CST
 "t_byte_stream_one_write" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -55,25 +34,14 @@ Test Failed.
 25/166 Test: t_byte_stream_two_writes
 Command: "/root/cs144/CS144-Computer-Network/tests/byte_stream_two_writes"
 Directory: /root/cs144/CS144-Computer-Network
-"t_byte_stream_two_writes" start time: Jan 01 11:31 CST
+"t_byte_stream_two_writes" start time: Jan 04 15:51 CST
 Output:
 ----------------------------------------------------------
-Test Failure on expectation:
-	Expectation: input_ended: 0
-
-Failure message:
-	The ByteStream should have had input_ended equal to 0 but instead it was 1
-
-List of steps that executed successfully:
-	Initialized with (capacity=15)
-	     Action: write "cat" to the stream
-
-Exception: The test "write-write-end-pop-pop" failed
 <end of output>
 Test time =   0.00 sec
 ----------------------------------------------------------
-Test Failed.
-"t_byte_stream_two_writes" end time: Jan 01 11:31 CST
+Test Passed.
+"t_byte_stream_two_writes" end time: Jan 04 15:51 CST
 "t_byte_stream_two_writes" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -81,25 +49,34 @@ Test Failed.
 26/166 Test: t_byte_stream_capacity
 Command: "/root/cs144/CS144-Computer-Network/tests/byte_stream_capacity"
 Directory: /root/cs144/CS144-Computer-Network
-"t_byte_stream_capacity" start time: Jan 01 11:31 CST
+"t_byte_stream_capacity" start time: Jan 04 15:51 CST
 Output:
 ----------------------------------------------------------
 Test Failure on expectation:
-	Expectation: input_ended: 0
+	Expectation: "ta" at the front of the stream
 
 Failure message:
-	The ByteStream should have had input_ended equal to 0 but instead it was 1
+	Expected "ta" at the front of the stream, but found "ca"
 
 List of steps that executed successfully:
 	Initialized with (capacity=2)
 	     Action: write "cat" to the stream
+	     Action: pop 2
+	     Action: write "tac" to the stream
+	Expectation: input_ended: 0
+	Expectation: buffer_empty: 0
+	Expectation: eof: 0
+	Expectation: bytes_read: 2
+	Expectation: bytes_written: 4
+	Expectation: remaining_capacity: 0
+	Expectation: buffer_size: 2
 
-Exception: The test "overwrite" failed
+Exception: The test "overwrite-clear-overwrite" failed
 <end of output>
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Failed.
-"t_byte_stream_capacity" end time: Jan 01 11:31 CST
+"t_byte_stream_capacity" end time: Jan 04 15:51 CST
 "t_byte_stream_capacity" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -107,25 +84,14 @@ Test Failed.
 27/166 Test: t_byte_stream_many_writes
 Command: "/root/cs144/CS144-Computer-Network/tests/byte_stream_many_writes"
 Directory: /root/cs144/CS144-Computer-Network
-"t_byte_stream_many_writes" start time: Jan 01 11:31 CST
+"t_byte_stream_many_writes" start time: Jan 04 15:51 CST
 Output:
 ----------------------------------------------------------
-Test Failure on expectation:
-	Expectation: input_ended: 0
-
-Failure message:
-	The ByteStream should have had input_ended equal to 0 but instead it was 1
-
-List of steps that executed successfully:
-	Initialized with (capacity=200000)
-	     Action: write "coautouonkqgghfmgrhlwzqqmhmzbrzhxlwxyrsaodjekqwjlicykkajfbqqauczjnyacxpdkkzhjzvsgytqhvxsuyhvhgqjyfoawjxm" to the stream
-
-Exception: The test "many writes" failed
 <end of output>
-Test time =   0.00 sec
+Test time =   0.01 sec
 ----------------------------------------------------------
-Test Failed.
-"t_byte_stream_many_writes" end time: Jan 01 11:31 CST
+Test Passed.
+"t_byte_stream_many_writes" end time: Jan 04 15:51 CST
 "t_byte_stream_many_writes" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -133,35 +99,33 @@ Test Failed.
 28/166 Test: t_webget
 Command: "/root/cs144/CS144-Computer-Network/tests/webget_t.sh"
 Directory: /root/cs144/CS144-Computer-Network
-"t_webget" start time: Jan 01 11:31 CST
+"t_webget" start time: Jan 04 15:51 CST
 Output:
 ----------------------------------------------------------
-Function called: get_URL(cs144.keithw.org, /nph-hasher/xyzzy).
-Warning: get_URL() has not been implemented yet.
-HTTP/1.1 200 OK
-Content-type: text/plain
-
-7SmXqWkrLKzVBCEalbSPqBcvs11Pw263K7x4Wv3JckI
+getaddrinfo(cs144.keithw.org, http): Temporary failure in name resolution
+ERROR: webget returned output that did not match the test's expectations
 <end of output>
-Test time =   1.36 sec
+Test time =   0.04 sec
 ----------------------------------------------------------
-Test Passed.
-"t_webget" end time: Jan 01 11:31 CST
-"t_webget" time elapsed: 00:00:01
+Test Failed.
+"t_webget" end time: Jan 04 15:51 CST
+"t_webget" time elapsed: 00:00:00
 ----------------------------------------------------------
 
 50/166 Testing: t_address_dt
 50/166 Test: t_address_dt
 Command: "/root/cs144/CS144-Computer-Network/doctests/address_dt"
 Directory: /root/cs144/CS144-Computer-Network
-"t_address_dt" start time: Jan 01 11:31 CST
+"t_address_dt" start time: Jan 04 15:51 CST
 Output:
 ----------------------------------------------------------
+This test requires Internet access and working DNS.
+Error: getaddrinfo(www.google.com, https): Temporary failure in name resolution
 <end of output>
-Test time =   0.01 sec
+Test time =   0.02 sec
 ----------------------------------------------------------
-Test Passed.
-"t_address_dt" end time: Jan 01 11:31 CST
+Test Failed.
+"t_address_dt" end time: Jan 04 15:51 CST
 "t_address_dt" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -169,14 +133,14 @@ Test Passed.
 51/166 Test: t_parser_dt
 Command: "/root/cs144/CS144-Computer-Network/doctests/parser_dt"
 Directory: /root/cs144/CS144-Computer-Network
-"t_parser_dt" start time: Jan 01 11:31 CST
+"t_parser_dt" start time: Jan 04 15:51 CST
 Output:
 ----------------------------------------------------------
 <end of output>
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"t_parser_dt" end time: Jan 01 11:31 CST
+"t_parser_dt" end time: Jan 04 15:51 CST
 "t_parser_dt" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -184,15 +148,15 @@ Test Passed.
 52/166 Test: t_socket_dt
 Command: "/root/cs144/CS144-Computer-Network/doctests/socket_dt"
 Directory: /root/cs144/CS144-Computer-Network
-"t_socket_dt" start time: Jan 01 11:31 CST
+"t_socket_dt" start time: Jan 04 15:51 CST
 Output:
 ----------------------------------------------------------
 <end of output>
-Test time =   0.03 sec
+Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
-"t_socket_dt" end time: Jan 01 11:31 CST
+"t_socket_dt" end time: Jan 04 15:51 CST
 "t_socket_dt" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Jan 01 11:31 CST
+End testing: Jan 04 15:51 CST

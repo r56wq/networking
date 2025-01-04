@@ -25,8 +25,10 @@ size_t ByteStream::write(const string &data) {
     const size_t thisWrite = std::min(remainRooms, data.size());
     // increase the total written bytes
     _nwrite += thisWrite;
-    // move the write pointer
-    _writePtr = (_writePtr + thisWrite) / _capacity;
+    for (size_t i = 0; i < thisWrite; i++) {
+        _buf[_writePtr] = data[i];
+        _writePtr ++;
+    }
     return thisWrite;
 }
 
@@ -50,6 +52,7 @@ void ByteStream::pop_output(const size_t len) {
         set_error();
         return;
     }
+    _nread += len;
     _readPtr = (_readPtr + len) % _capacity;
 }
 
@@ -68,7 +71,7 @@ std::string ByteStream::read(const size_t len) {
 
 void ByteStream::end_input() { _writable = false; }
 
-bool ByteStream::input_ended() const { return _writable; }
+bool ByteStream::input_ended() const { return _writable == false; }
 
 size_t ByteStream::buffer_size() const { return _capacity - getRemainRoom(); }
 
