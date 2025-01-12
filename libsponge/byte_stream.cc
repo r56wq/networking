@@ -16,7 +16,7 @@ using namespace std;
 
 ByteStream::ByteStream(const size_t capacity) : _capacity(capacity), _buf(capacity, '\n') {}
 
-size_t ByteStream::write(const string &data) {
+size_t ByteStream::write(const string &data)  {
     if (!_writable) {
         set_error();
         return 0;
@@ -27,7 +27,7 @@ size_t ByteStream::write(const string &data) {
     _nwrite += thisWrite;
     for (size_t i = 0; i < thisWrite; i++) {
         _buf[_writePtr] = data[i];
-        _writePtr = (_writePtr + 1 + _capacity) % _capacity;
+        _writePtr = (_writePtr +  + _capacity) % _capacity;
     }
     return thisWrite;
 }
