@@ -3,18 +3,35 @@
 
 #include "byte_stream.hh"
 
+#include <cstddef>
 #include <cstdint>
+#include <ios>
 #include <string>
+#include <unistd.h>
+#include <unordered_set>
 
 //! \brief A class that assembles a series of excerpts from a byte stream (possibly out of order,
 //! possibly overlapping) into an in-order byte stream.
 class StreamReassembler {
   private:
     // Your code here -- add private members as necessary.
-
+    std::unordered_set<size_t> used; // Whether certain position is used
     ByteStream _output;  //!< The reassembled in-order byte stream
     size_t _capacity;    //!< The maximum number of bytes
 
+    size_t first_unread = 0; // The index of the first unread byte in the stream
+    size_t first_unassembled = 0; // The index of the first unassembled byte in the stream
+    size_t first_unacceptable; // The index of the  first unacceptable byte in the stream
+
+    std::string _buf; // buffer for holding coming string
+    size_t _buf_size = 0; // how much space in buffer is occupied by  strings
+
+    // send the coming valid string to buffer
+    void send_to_buf(const std::string &data, const size_t index);
+
+    // update some private members, this is executed when the buf transfer the strings to the _output
+    void update(const size_t bytes_written);
+    
   public:
     //! \brief Construct a `StreamReassembler` that will store up to `capacity` bytes.
     //! \note This capacity limits both the bytes that have been reassembled,
