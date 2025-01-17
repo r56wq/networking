@@ -2,7 +2,7 @@
 #include <cstddef>
 #include <ios>
 #include <string>
-
+#include <stdexcept>
 // Dummy implementation of a stream reassembler.
 
 // For Lab 1, please replace with a real implementation that passes the
@@ -35,6 +35,7 @@ void StreamReassembler::update(const size_t bytes_written) {
 
 
 // buffer size is updated here
+// The function itself does not call update
 void StreamReassembler::send_to_buf(const std::string &data, const size_t index) {
     // Where to start insert and end insert in the buffer, include the start_Looking itself
     // But not include end_Looking
@@ -55,6 +56,23 @@ void StreamReassembler::send_to_buf(const std::string &data, const size_t index)
 
 }
 
+// Note that this function only tries to send to 
+// ByteStream once
+size_t StreamReassembler::send_to_bs() {
+   // Find the first discontiguous index in the buffer
+   // Using brute search, although this can be optimized by
+   // binary search
+   size_t discontiguous = 1;
+   for (; discontiguous < _capacity; discontiguous++) {
+    if (used.find(discontiguous) != used.end()) break;
+   } 
+   auto sent_strings = _buf.substr(0, discontiguous);
+   auto bytes_sent = _output.write(sent_strings);
+   _buf_size -= bytes_sent;
+   if (static_cast<int>(_buf_size) < 0) throw std::runtime_error("_buf_size cannot be less"
+   "than 0");
+   return bytes_sent; 
+}
 
 //! \details This function accepts a substring (aka a segment) of bytes,
 //! possibly out-of-order, from the logical stream, and assembles any newly
@@ -62,11 +80,17 @@ void StreamReassembler::send_to_buf(const std::string &data, const size_t index)
 void StreamReassembler::push_substring(const string &data, const size_t index, const bool eof) {
     //First check if the index is valid
     if (index >= first_unacceptable || index + data.size() <= first_unread) return;
-
+    if (eof) {eof_flag = true;}
     //Send the data to buf
     send_to_buf(data, index);
-    
-    //
+
+    // push the string to the bytestream just once
+    auto bytes_written = send_to_bs();
+
+    // update relevant memebers
+    update(bytes_written);
+
+    if (eof_flag && empty()) _output.end_input(); 
 }
 
 size_t StreamReassembler::unassembled_bytes() const {

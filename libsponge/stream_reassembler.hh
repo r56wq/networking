@@ -25,13 +25,16 @@ class StreamReassembler {
 
     std::string _buf; // buffer for holding coming string
     size_t _buf_size = 0; // how much space in buffer is occupied by  strings
-
+    bool eof_flag = false; // waiting for a string carries eof flag
     // send the coming valid string to buffer
     void send_to_buf(const std::string &data, const size_t index);
 
     // update some private members, this is executed when the buf transfer the strings to the _output
     void update(const size_t bytes_written);
     
+    // send the stream in buffer to bytestream
+    // returns bytes written to the stream
+    size_t send_to_bs();
   public:
     //! \brief Construct a `StreamReassembler` that will store up to `capacity` bytes.
     //! \note This capacity limits both the bytes that have been reassembled,
